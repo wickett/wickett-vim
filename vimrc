@@ -13,33 +13,33 @@ Bundle 'gmarik/vundle'
 " original repos on github
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
-"Bundle 'mileszs/ack.vim'
-"Bundle 'FuzzyFinder'
-"Bundle 'taglist.vim'
 Bundle 'Gist.vim'
-"Bundle 'L9'
-"Bundle 'kien/ctrlp.vim'
-"Bundle 'VimClojure'
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'duskhacker/sweet-rspec-vim'
 Bundle 'tpope/vim-markdown'
-"Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-rails'
-"Bundle 'confluencewiki.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'vim-orgmode'
 Bundle 'vim-ruby/vim-ruby'
-"Bundle 'matchit.zip'
-"Bundle 'CSApprox'
-"Bundle 'timcharper/textile.vim'
-"Bundle 'jimenezrick/vimerl'
-"Bundle 'rson/vim-conque'
+Bundle 'matchit.zip'
+Bundle 'CSApprox'
+Bundle 'timcharper/textile.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/syntastic'
 Bundle 'JSON.vim'
+"Bundle 'mileszs/ack.vim'
+"Bundle 'FuzzyFinder'
+"Bundle 'taglist.vim'
+"Bundle 'L9'
+"Bundle 'kien/ctrlp.vim'
+"Bundle 'VimClojure'
+"Bundle 'tpope/vim-haml'
+"Bundle 'confluencewiki.vim'
+"Bundle 'jimenezrick/vimerl'
+"Bundle 'rson/vim-conque'
 
 filetype plugin indent on     " required! 
 "
@@ -90,6 +90,7 @@ set statusline+=%-14(%l,%c%V%)               " line, character
 set statusline+=%<%P                         " file position
 
 autocmd FileType ruby compiler ruby
+
 if has("autocmd")
 "au FileType cpp,c,java,sh,pl,php,python,ruby set autoindent
 "au FileType cpp,c,java,sh,pl,php,py,rb set smartindent
