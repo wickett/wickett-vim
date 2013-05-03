@@ -89,8 +89,27 @@ set statusline+=0x%-8B                       " character value
 set statusline+=%-14(%l,%c%V%)               " line, character
 set statusline+=%<%P                         " file position
 
-compiler ruby
-
+autocmd FileType ruby compiler ruby
+if has("autocmd")
+"au FileType cpp,c,java,sh,pl,php,python,ruby set autoindent
+"au FileType cpp,c,java,sh,pl,php,py,rb set smartindent
+" PYTHON
+au FileType cpp,c,java,sh,pl,php set cindent
+au BufRead *.py set cinwords=if,elif,else,for,while,try,except,finally,def,class
+au BufRead *.py set makeprg=python\ %
+au BufRead *.py set autowrite
+au BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+" RUBY
+au BufRead *.rb set cinwords=if,elsif,else,unless,for,while,begin,rescue,def,class,module,require_relative
+au BufRead *.rb set makeprg=ruby\ %
+au BufRead *.rb set autowrite
+au BufRead *.rb set smartindent cinwords=if,elsif,else,unless,for,while,begin,rescue,def,class,module
+" RSPEC
+au BufRead *_spec.rb set cinwords=if,elsif,else,unless,for,while,begin,rescue,def,class,module,require_relative
+au BufRead *_spec.rb set makeprg=rspec\ -c\ %
+au BufRead *_spec.rb set autowrite
+au BufRead *_spec.rb set smartindent cinwords=if,elsif,else,unless,for,while,begin,rescue,def,class,module
+endif
 
 let g:fuzzy_ignore = "*.log" 
 let g:fuzzy_matching_limit = 70
