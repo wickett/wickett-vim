@@ -1,15 +1,15 @@
-Adam's vimrc
+wickett's vimrc
 -----
 
 To use, want to do this:
 
 ```bash
-$ git clone github.com/adamhjk/adam-vim ~/.vim
+$ git clone git@github.com/wickett/wickett-vim ~/.vim
 $ cd ~/.vim
 $ make install
 ```
 
-Then marvel at what's up.
+This is a fork of adam-vim from Adam Jacobs.  I just slimmed down the vundle in the vimrc and added my own custom vimrc settings, but all the hard work goes to Adam..
 
 ## Install fonts
 
