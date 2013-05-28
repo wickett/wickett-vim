@@ -8,7 +8,7 @@ call vundle#rc()
 " required! 
 Bundle 'gmarik/vundle'
 
-" My Bundles here:
+" The bundles to Install:
 "
 " original repos on github
 Bundle 'tpope/vim-fugitive'
@@ -29,12 +29,14 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/syntastic'
+Bundle 'L9'
 Bundle 'JSON.vim'
-"Bundle 'mileszs/ack.vim'
-"Bundle 'FuzzyFinder'
-"Bundle 'taglist.vim'
-"Bundle 'L9'
-"Bundle 'kien/ctrlp.vim'
+Bundle 'mileszs/ack.vim'
+Bundle 'FuzzyFinder'
+Bundle 'taglist.vim'
+Bundle 'kien/ctrlp.vim'
+
+"Not sure about these yet
 "Bundle 'VimClojure'
 "Bundle 'tpope/vim-haml'
 "Bundle 'confluencewiki.vim'
