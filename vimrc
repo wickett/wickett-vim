@@ -35,6 +35,7 @@ Bundle 'mileszs/ack.vim'
 Bundle 'FuzzyFinder'
 Bundle 'taglist.vim'
 Bundle 'kien/ctrlp.vim'
+Bundle 'godlygeek/tabular'
 
 "Not sure about these yet
 "Bundle 'VimClojure'
