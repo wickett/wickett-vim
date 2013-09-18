@@ -4,6 +4,7 @@ wickett's vimrc
 To use, want to do this:
 
 ```bash
+$ sudo apt-get install curl ack exuberant-ctags libcurl4-openssl-dev
 $ git clone git@github.com:wickett/wickett-vim ~/.vim
 $ cd ~/.vim
 $ make install
