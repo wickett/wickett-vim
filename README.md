@@ -4,7 +4,7 @@ wickett's vimrc
 To use, want to do this:
 
 ```bash
-$ git clone git@github.com/wickett/wickett-vim ~/.vim
+$ git clone git@github.com:wickett/wickett-vim ~/.vim
 $ cd ~/.vim
 $ make install
 ```
