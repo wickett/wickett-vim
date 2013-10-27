@@ -125,3 +125,7 @@ examples.  An asterisk (*) is used to denote the cursor position.
 ```
 
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/wickett/wickett-vim/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
