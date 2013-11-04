@@ -70,8 +70,7 @@ set autoindent
 " Use spaces instead of tabs
 set expandtab
 set background=dark
-colorscheme twilight 
-" colorscheme solarized
+colorscheme twilight
 if has("gui_gtk2")
   set guifont=Inconsolata\ 12
 else
