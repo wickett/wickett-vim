@@ -111,6 +111,8 @@ examples.  An asterisk (*) is used to denote the cursor position.
 [,t] = Command-T
 [,b] = FuzzyBufferFinder
 [,l] = TListToggle 
+[,r] = opens ri ruby doc horizontal split
+[,R] = opens ri ruby doc vertical split
 [,gd] :GitDiff
 [,gD] :GitDiff --cached
 [,gs] :GitStatus
@@ -124,4 +126,10 @@ examples.  An asterisk (*) is used to denote the cursor position.
 [<Enter>]    :GitAdd <cfile>
 ```
 
+### ri plugin
+```
+check https://github.com/danchoi/ri.vim
+[,r] opens ri ruby doc horizontal split
+[,R] opens ri ruby doc vertical split
+```
 

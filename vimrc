@@ -15,6 +15,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
 Bundle 'Gist.vim'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-rvm'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'duskhacker/sweet-rspec-vim'
 Bundle 'tpope/vim-markdown'
@@ -35,6 +36,7 @@ Bundle 'mileszs/ack.vim'
 Bundle 'FuzzyFinder'
 Bundle 'taglist.vim'
 Bundle 'kien/ctrlp.vim'
+Bundle 'danchoi/ri.vim'
 Bundle 'godlygeek/tabular'
 
 "Not sure about these yet
@@ -146,6 +148,7 @@ map <leader>t :CtrlP<CR>
 map <leader>b :CtrlPBuffer<CR>
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 map <leader>j :TagbarToggle<CR>
+map <leader>m :make<CR>
 
 " Hold command to do the g for softwrap
 vmap <D-j> gj
