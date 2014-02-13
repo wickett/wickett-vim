@@ -37,6 +37,10 @@ Bundle 'FuzzyFinder'
 Bundle 'taglist.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'godlygeek/tabular'
+"Had to hand patch ri.vim from this issue:
+"https://github.com/danchoi/ri.vim/issues/20 
+Bundle 'danchoi/ri.vim'
+Bundle 'danchoi/rb_nav'
 
 
 "Not sure about these yet

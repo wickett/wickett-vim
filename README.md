@@ -125,3 +125,9 @@ examples.  An asterisk (*) is used to denote the cursor position.
 ```
 [<Enter>]    :GitAdd <cfile>
 ```
+
+### Use ri in vim
+```
+[,r] = opens ri ruby doc horizontal split
+[,R] = opens ri ruby doc vertical split
+```
