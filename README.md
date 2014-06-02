@@ -10,6 +10,14 @@ $ cd ~/.vim
 $ make install
 ```
 
+This includes vundle as a submodule then installs the lastest and greatest of the plugins. To update vundle, run the following:
+```bash
+$ git submodule update --remote --merge
+$ git add .
+$ git commit -m"revving vundle"
+$ git push
+```
+
 This is a fork of adam-vim from Adam Jacobs.  I just slimmed down the vundle in the vimrc and added my own custom vimrc settings, but all the hard work goes to Adam..
 
 ## Install fonts
