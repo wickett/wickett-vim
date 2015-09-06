@@ -41,6 +41,7 @@ Bundle 'godlygeek/tabular'
 "https://github.com/danchoi/ri.vim/issues/20 
 Bundle 'danchoi/ri.vim'
 Bundle 'danchoi/rb_nav'
+Bundle 'fatih/vim-go'
 
 
 "Not sure about these yet
