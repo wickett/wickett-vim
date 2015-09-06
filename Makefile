@@ -7,3 +7,5 @@ install:
 	ln -sf ~/.vim/vimrc ~/.vimrc
 	vim -c 'BundleInstall' -c 'qa!'
  
+clean:
+	rm -rf ~/.vim/bundle
