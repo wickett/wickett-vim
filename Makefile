@@ -1,11 +1,12 @@
-install:
-	git submodule init
-	git submodule update
-	mkdir -p ~/.vimswaps
-	mkdir -p ~/.vimbackups
-	mkdir -p ~/.vim/bundle
+config:
 	ln -sf ~/.vim/vimrc ~/.vimrc
-	vim -c 'BundleInstall' -c 'qa!'
- 
+	ln -sf ~/.vim/vimrc.local ~/.vimrc.local
+
+install: clean config
+	vim +NeoBundleInstall +qall
+
+update: config
+	vim +VimBoostrapUpdate +qall
+
 clean:
 	rm -rf ~/.vim/bundle
