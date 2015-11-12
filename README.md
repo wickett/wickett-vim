@@ -29,15 +29,17 @@ $ make update
 ## Important configuration stuff
 Leader is mapped to ','
 
-### Keymaps
+### Custom Keymaps
 Check vimrc.local for mappings
 
+Command | Descriptions
+--- | ---
 ```
-[,d] = Toggle NERDtree
+[,d] | Toggle NERDtree
 ```
-## Commands
+## General
 
-Commands | Descriptions
+Command | Descriptions
 --- | ---
 `:cd <path>` | Open path */path*
 `<Control+w>+<hjkl>` | Navigate via split panels
@@ -57,16 +59,7 @@ Commands | Descriptions
 `,v` | Split vertical
 `,h` | Split horizontal
 `,f` | Search in the project
-`,o` | Open github file/line (website), if used git in **github**
 `,sh` | Open shell.vim terminal inside Vim or NeoVim built-in terminal
-`,ga` | Execute *git add* on current file
-`,gc` | git commit (splits window to write commit message)
-`,gsh` | git push
-`,gll` | git pull
-`,gs` | git status
-`,gb` | git blame
-`,gd` | git diff
-`,gr` | git remove
 `,so` | Open Session
 `,ss` | Save Session
 `,sd` | Delete Session
@@ -77,4 +70,35 @@ Commands | Descriptions
 `YY` | Copy to clipboard
 `,p` | Paste
 `<Control+y>,` | Activate Emmet plugin`></Control></hjkl></path>`
+
+## Git and github 
+Command | Descriptions
+--- | ---
+`,o` | Open github file/line (website), if used git in **github**
+`,ga` | Execute *git add* on current file
+`,gc` | git commit (splits window to write commit message)
+`,gsh` | git push
+`,gll` | git pull
+`,gs` | git status
+`,gb` | git blame
+`,gd` | git diff
+`,gr` | git remove
+
+## Commenting
+
+Commands | Descriptions
+--- | ---
 `gcc` | Comments out the line
+`gc` | In visual mode it comments or uncomments a the selection
+
+## Golang
+
+Commands | Descriptions
+--- | ---
+`,dd` | Godef vertical
+`,dv` | Godoc vertical
+`,db` | Godoc in browser
+`,gi` | Go info
+`,gr` | go run
+`,rb` | go build
+`,gt` | go test
