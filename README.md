@@ -53,7 +53,7 @@ Command | Description
 `,c` | Close active buffer (clone file)
 `F2`  | Open tree navigate in actual opened file
 `F3`  | Open/Close tree navigate files
-`F4` | List all class and method, support for python, go, lua, ruby and php
+`F4` | List all class and method. Support for python, go, lua, ruby and php
 `,v` | Split vertical
 `,h` | Split horizontal
 `,f` | Search in the project
