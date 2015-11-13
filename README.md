@@ -30,16 +30,14 @@ $ make update
 Leader is mapped to ','
 
 ### Custom Keymaps
-Check vimrc.local for mappings
+These are in vimrc.local
 
-Command | Descriptions
+Command | Description
 --- | ---
-```
-[,d] | Toggle NERDtree
-```
-## General
+`[,d]` | Toggle NERDtree
 
-Command | Descriptions
+## General
+Command | Description
 --- | ---
 `:cd <path>` | Open path */path*
 `<Control+w>+<hjkl>` | Navigate via split panels
@@ -71,8 +69,8 @@ Command | Descriptions
 `,p` | Paste
 `<Control+y>,` | Activate Emmet plugin`></Control></hjkl></path>`
 
-## Git and github 
-Command | Descriptions
+## Git and github
+Command | Description
 --- | ---
 `,o` | Open github file/line (website), if used git in **github**
 `,ga` | Execute *git add* on current file
@@ -85,15 +83,13 @@ Command | Descriptions
 `,gr` | git remove
 
 ## Commenting
-
-Commands | Descriptions
+Command | Description
 --- | ---
 `gcc` | Comments out the line
 `gc` | In visual mode it comments or uncomments a the selection
 
 ## Golang
-
-Commands | Descriptions
+Command | Description
 --- | ---
 `,dd` | Godef vertical
 `,dv` | Godoc vertical
