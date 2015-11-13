@@ -15,15 +15,16 @@ To Install
 ```
 $ cd ~/.vim
 $ make install
-$ make install
+
+# This does a make clean and make config
 ```
 
 To Update
 
 ```
 $ cd ~/.vim
-$ make install
 $ make update
+# Follow instructions
 ```
 
 ## Important configuration stuff
