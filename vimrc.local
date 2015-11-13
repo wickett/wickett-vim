@@ -1,7 +1,3 @@
-" vim-boostrap language options
-:let vim_bootstrap_langs = "ruby,html,go"
-:let g:vim_bootstrap_editor = "vim"
-
 " my custom mappings
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
