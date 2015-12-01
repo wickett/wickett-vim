@@ -2,9 +2,8 @@
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " tabs and space settings
-set softtabstop=2
-set shiftwidth=2
-set tabstop=2
-set autoindent
-set expandtab
-
+autocmd FileType * set tabstop=8
+autocmd FileType * set shiftwidth=8
+autocmd FileType * set softtabstop=0
+autocmd FileType * set autoindent
+autocmd FileType * set expandtab
