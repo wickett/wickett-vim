@@ -48,6 +48,7 @@ NeoBundle 'bronson/vim-trailing-whitespace'
 NeoBundle 'jiangmiao/auto-pairs'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'scrooloose/syntastic'
+NeoBundle "Yggdroot/indentLine"
 NeoBundle 'Shougo/vimproc.vim', {
       \ 'build' : {
       \     'windows' : 'tools\\update-dll-mingw',
@@ -76,11 +77,10 @@ NeoBundle 'honza/vim-snippets'
 "" Color
 NeoBundle 'tomasr/molokai'
 
-"" Vim-Bootstrap Updater
-NeoBundle 'sherzberg/vim-bootstrap-updater'
+"" Vim-Bootstrap Updater by sherzberg
+NeoBundle 'avelino/vim-bootstrap-updater'
 
 "" Custom bundles
-
 "" Go Lang Bundle
 NeoBundle "fatih/vim-go"
 
@@ -160,7 +160,6 @@ endif
 
 set mousemodel=popup
 set t_Co=256
-set cursorline
 set guioptions=egmrti
 set gfn=Monospace\ 10
 
@@ -343,14 +342,19 @@ set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|tox|ico|git|hg|svn))$'
 let g:ctrlp_user_command = "find %s -type f | grep -Ev '"+ g:ctrlp_custom_ignore +"'"
 let g:ctrlp_use_caching = 1
+
+" The Silver Searcher
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
+endif
+
 cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 noremap <leader>b :CtrlPBuffer<CR>
 let g:ctrlp_map = '<leader>e'
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-if executable('ag')
-    let g:ctrlp_user_command = 'ag %s -l --nocolor --ignore '+ g:ctrlp_custom_ignore +' -g ""'
-endif
 
 " snippets
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -370,6 +374,12 @@ let g:syntastic_aggregate_errors = 1
 " Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
+
+" IndentLine
+let g:indentLine_enabled = 1
+let g:indentLine_concealcursor = 0
+let g:indentLine_char = '┆'
+let g:indentLine_faster = 1
 
 " Disable visualbell
 set visualbell t_vb=
