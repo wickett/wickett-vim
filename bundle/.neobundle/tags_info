@@ -6,7 +6,9 @@ grep.vim
 indentLine
 molokai
 neobundle.vim
+neocomplete
 nerdtree
+sourcegraph-vim
 syntastic
 tagbar
 ultisnips

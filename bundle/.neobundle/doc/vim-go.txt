@@ -53,7 +53,7 @@ easily.
     (golint, vet, errcheck, deadcode, etc..) and shows the warnings/errors
   * Lint your code with `:GoLint`
   * Run your code through `:GoVet` to catch static errors
-  * Advanced source analysis tools utilizing oracle, such as `:GoImplements`,
+  * Advanced source analysis tools utilizing guru, such as `:GoImplements`,
     `:GoCallees`, and `:GoReferrers`
   * Precise type-safe renaming of identifiers with `:GoRename`
   * List all source files and dependencies
@@ -211,11 +211,67 @@ COMMANDS                                                          *go-commands*
 
                                                                      *:GoDef*
 :GoDef [identifier]
+gd
+CTRL-]
 
     Goto declaration/definition for the given [identifier]. If no argument is
     given, it will jump to the declaration under the cursor. By default the
-    mapping `gd` is enabled to invoke GoDef for the identifier under the cursor.
-    See |g:go_def_mapping_enabled| to disable it.
+    CTRL-] key and the mapping `gd` are enabled to invoke :GoDef for the
+    identifier under the cursor. See |g:go_def_mapping_enabled| to disable them.
+
+    vim-go also keeps a per-window location stack, roughly analagous to how
+    vim's internal |tags| functionality works. This is pushed to every time a
+    jump is made using the GoDef functionality. In essence, this is a LIFO list
+    of file locations you have visited with :GoDef that is retained to help you
+    navigate software. For more information on displaying the stack, see
+    |:GoDefJump|
+
+                                                                *:GoDefStack*
+:GoDefStack [number]
+
+    This command Jumps to a given location in the jumpstack, retaining all other
+    entries. Jumps to non-existent entries will print an informative message,
+    but are otherwise a noop.
+
+    If no argument is given, it will print out an interactive list of all items
+    in the stack. Its output looks like this:
+
+      1 /path/to/first/file.go|1187 col 16|AddThing func(t *Thing)
+    > 2 /path/to/thing/thing.go|624 col 19|String() string
+      3 /path/to/thing/thing.go|744 col 6|func Sprintln(a ...interface{}) string
+
+    This list shows the identifiers that you jumped to and the file and cursor
+    position before that jump.  The older jumps are at the top, the newer at the
+    bottom.
+
+    The '>' points to the active entry.  This entry and any newer entries below
+    it will be replaced if |:GoDef| is done from this location. The CTRL-t and
+    |:GoDefPop| command will jump to the position above the active entry.
+
+    Jumps to non-existent entries will print an informative message, but are
+    otherwise a noop.
+
+                                                            *:GoDefStackClear*
+:GoDefStackClear 
+
+    Clears the current stack list and resets it.
+
+                                                                  *:GoDefPop*
+:GoDefPop [count]
+CTRL-t
+
+    Navigate to the [count] earlier entry in the jump stack, retaining the newer
+    entries. If no argument is given, it will jump to the next most recent entry
+    (`:GoDefPop 1`).  If [count] is greater than the number of prior entries,
+    an error will be printed and no jump will be performed.
+
+    If you have used :GoDefPop to jump to an earlier location, and you issue
+    another :GoDef command, the current entry will be replaced, and all newer
+    entries will be removed, effectively resuming the stack at that location.
+
+    By default [count]CTRL-t is enabled to invoke :GoDefPop.  Similarly, hitting
+    CTRL-t without a prior count is equivalent to `:GoDefPop 1`.  See
+    |g:go_def_mapping_enabled| to disable this.
 
                                                                      *:GoRun*
 :GoRun[!] [expand]
@@ -331,9 +387,22 @@ COMMANDS                                                          *go-commands*
 :GoCoverage[!] [options]
 
     Create a coverage profile and annotates the current file's source code. If
-    called again clears the annotation (works as a toggle)
+    called again it rerurns the tests.
 
     If [!] is not given the first error is jumped to.
+
+                                                            *:GoCoverageToggle*
+:GoCoverageToggle[!] [options]
+
+    Create a coverage profile and annotates the current file's source code. If
+    called again clears the annotation (works as a toggle).
+
+    If [!] is not given the first error is jumped to.
+
+                                                             *:GoCoverageClear*
+:GoCoverageClear [options]
+
+   Clears the coverage annotation.
 
 
                                                           *:GoCoverageBrowser*
@@ -370,7 +439,8 @@ COMMANDS                                                          *go-commands*
 :GoInstallBinaries
 
     Download and Install all necessary Go tool binaries such as `godef`,
-    `goimports`, `gocode`, etc.. under `g:go_bin_path`
+    `goimports`, `gocode`, etc.. under `g:go_bin_path`. Set |g:go_get_update|
+    to disable updating dependencies.
 
                                                           *:GoUpdateBinaries*
 :GoUpdateBinaries
@@ -394,13 +464,29 @@ COMMANDS                                                          *go-commands*
     If [!] is not given the first error is jumped to.
 
 
-                                                            *:GoOracleScope*
-:GoOracleScope [path1] [path2] ...
+                                                            *:GoGuruScope*
+:GoGuruScope [pattern] [pattern2] ... [patternN]
 
-    Changes the custom |g:go_oracle_scope| setting and overrides it with the
-    given import paths. The custom scope is cleared (unset) if `""` is given
-    as the only path. If no arguments is given it prints the current custom
-    scope.
+    Changes the custom |g:go_guru_scope| setting and overrides it with the
+    given package patterns. The custom scope is cleared (unset) if `""` is
+    given as the only path. If no arguments is given it prints the current
+    custom scope. Example patterns are: 
+>
+      golang.org/x/tools/cmd/guru # a single package
+      golang.org/x/tools/...      # all packages beneath dir
+      ...                         # the entire workspace.
+<
+    Example usage, the following sets the scope to a `github.com/fatih/color`
+    and to all packages under `golang.org/x/tools/`:
+>
+      :GoGuruScope github.com/fatih/color golang.org/x/tools/...
+<
+    The following sets it to the entire workspace:
+>
+      :GoGuruScope ...
+<
+    Under the hood, the patterns are all joined to a comma-separated list and
+    passed to `guru`'s `-scope` flag.
 
                                                               *:GoCallees*
 :GoCallees
@@ -423,7 +509,7 @@ COMMANDS                                                          *go-commands*
     type (for an expression), its value (for a constant expression), its size,
     alignment, method set and interfaces (for a type), its declaration (for an
     identifier), etc. Almost any piece of syntax may be described, and the
-    oracle will try to print all the useful information it can.
+    guru will try to print all the useful information it can.
 
                                                               *:GoCallstack*
 :GoCallstack
@@ -476,10 +562,10 @@ COMMANDS                                                          *go-commands*
     the variable |g:go_metalinter_command|. To override the maximum linters
     execution time use |g:go_metalinter_deadline| variable.
 
-                                                             *:GoOracleTags*
-:GoOracleTags [tags]
+                                                             *:GoGuruTags*
+:GoGuruTags [tags]
 
-    Changes the custom |g:go_oracle_tags| setting and overrides it with the
+    Changes the custom |g:go_guru_tags| setting and overrides it with the
     given build tags. This command cooperate with GoReferrers command when
     there exist mulitiple build tags in your project, then you can set one
     of the build tags for GoReferrers to find more accurate.
@@ -534,12 +620,25 @@ COMMANDS                                                          *go-commands*
     definitions. By default set to: `"func,type"`. Possible options are:
     `{func,type}`
 
+                                                              *:GoImpl*
+:GoImpl [receiver] [interface]
+
+    Generates method stubs for implementing an interface. If no arguments is
+    passed it takes the identifier under the cursor to be the receiver and
+    asks for the interface type to be generated. If used with arguments, the
+    receiver and the interface needs to be specified. Example usages:
+>
+      :GoImpl f *Foo io.Writer
+      :GoImpl T io.ReadWriteCloser
+<
+  
+
 ===============================================================================
 MAPPINGS                                                        *go-mappings*
 
 vim-go has several <Plug> keys which can be used to create custom mappings
-For example, to create a mapping that `go run` the current file create a
-mapping for the `(go-run)`: >
+For example, to create a mapping that `go run` for the current package, create
+a mapping for the `(go-run)`: >
 
   au FileType go nmap <leader>r <Plug>(go-run)
 
@@ -549,7 +648,7 @@ documentation in the |go-commands| section. Available <Plug> keys are:
 
                                                                   *(go-run)*
 
-Calls `go run` for the current file
+Calls `go run` for the current main package
 
                                                                *(go-run-tab)*
 
@@ -575,16 +674,13 @@ Calls `go build` for the current package
 
 Calls `go generate` for the current package
 
-
                                                                  *(go-info)*
 
 Shows type information for the word under the cursor
 
-
                                                               *(go-install)*
 
 Calls `go install` for the current package
-
 
                                                                  *(go-test)*
 
@@ -600,7 +696,22 @@ Calls `go test -c` for the current package
 
                                                              *(go-coverage)*
 
-Calls `go test -coverprofile-temp.out` for the current package
+Calls `go test -coverprofile-temp.out` for the current package and shows the
+coverage annotation.
+
+                                                        *(go-coverage-clear)*
+
+Clears the coverage annotation
+
+                                                        *(go-coverage-toggle)*
+
+Calls `go test -coverprofile-temp.out` for the current package and shows the
+coverage annotation. If run agains it acts as a toggle and clears the
+annotation.
+
+                                                                *(go-imports)*
+
+Calls `goimports` for the current package
 
                                                                   *(go-vet)*
 
@@ -648,23 +759,36 @@ Goto declaration/definition. Results are shown in the current buffer.
 
                                                             *(go-def-split)*
 
-Goto declaration/definition. Results are shown in a split window.
-
+Goto declaration/definition. Results are shown in a split window. 
+Jumps to an existing buffer if |g:go_def_reuse_buffer| is enabled.
 
                                                          *(go-def-vertical)*
 
 Goto declaration/definition. Results are shown in a vertical split window.
-
+Jumps to an existing buffer if |g:go_def_reuse_buffer| is enabled.
 
                                                               *(go-def-tab)*
 
 Goto declaration/definition. Results are shown in a tab window.
+Jumps to an existing buffer if |g:go_def_reuse_buffer| is enabled.
 
-                                                          *(go-implements)*
+                                                              *(go-def-stack)*
+
+Shows the godef tag stack
+
+                                                        *(go-def-stack-clear)*
+
+Resets and clers the tasg stack
+
+                                                              *(go-def-pop)*
+
+Jump to previous entry in the tag stack
+
+                                                            *(go-implements)*
 
 Show the interfaces that the type under the cursor implements.
 
-                                                              *(go-rename)*
+                                                                *(go-rename)*
 
 Rename the identifier under the cursor to the desired new name
 
@@ -712,6 +836,11 @@ Alternates between the implementation and test code in a new horizontal split
                                                     *(go-alternate-vertical)*
 
 Alternates between the implementation and test code in a new vertical split
+
+                                                                *(go-import)*
+
+Calls `:GoImport` for the current package
+
 
 ===============================================================================
 TEXT OBJECTS                                                 *go-text-objects*
@@ -853,13 +982,30 @@ In Go, using `godoc` is more idiomatic. Default is enabled. >
 
   let g:go_doc_keywordprg_enabled = 1
 <
+                                                            *'g:go_def_mode'*
+
+Use this option to define the command to be used for |:GoDef|. By default
+`guru` is being used as it covers all edge cases. But one might also use
+`godef` as it's more faster. Current valid options are: `[guru, godef]` >
+
+  let g:go_def_mode = 'guru'
+<
                                                  *'g:go_def_mapping_enabled'*
 
-Use this option to enable/disable the default mapping of (`gd`) for GoDef.
-Disabling it allows you to map something else to `gd`. Default is enabled. >
+Use this option to enable/disable the default mapping of CTRL-] and (`gd`) for
+GoDef and CTRL-t for :GoDefPop. Disabling it allows you to map something else to
+these keys or mappings. Default is enabled. >
 
   let g:go_def_mapping_enabled = 1
 <
+                                                     *'g:go_def_reuse_buffer'*
+
+Use this option to jump to an existing buffer for the split, vsplit and tab
+mappings of |:GoDef|. By default it's disabled. >
+
+  let g:go_def_reuse_buffer = 0
+<
+
                                                     *'g:go_dispatch_enabled'*
 
 Use this option to enable/disable the use of Dispatch to execute the
@@ -898,16 +1044,24 @@ is used. Use "neosnippet" for neosnippet.vim: >
   let g:go_snippet_engine = "ultisnips"
 <
 
-                                                      *'g:go_oracle_scope'*
+                                                         *'g:go_get_update'*
 
-Use this option to define the scope of the analysis to be passed for oracle
-related commands, such as |GoImplements|, |GoCallers|, etc.  By default it's
-not set, so only the current package's go files are passed as scope. You can
-change it on-the-fly with |GoOracleScope|. For more info, please have a look
-at oracle's user manual:
-https://golang.org/s/oracle-user-manual#heading=h.nwso96pj07q8 >
+Use this option to disable updating dependencies with |GoInstallBinaries|. By
+default this is enabled.
+>
+  let g:go_get_update = 1
+<
 
-  let g:go_oracle_scope = ''
+                                                         *'g:go_guru_scope'*
+
+Use this option to define the scope of the analysis to be passed for guru
+related commands, such as |GoImplements|, |GoCallers|, etc.You can change it
+on-the-fly with |GoGuruScope|. The input should be a a list of package
+pattern. An example input might be:
+`["github.com/fatih/color","github.com/fatih/structs"]` By default it's not set,
+so the relevant commands defaults are being used. 
+>
+  let g:go_guru_scope = []
 <
 
                                       *'g:go_highlight_array_whitespace_error'*
@@ -968,7 +1122,13 @@ Highlights method names. By default it's disabled. >
 
 Highlights struct names. By default it's disabled. >
 
-	let g:go_highlight_structs = 0
+  let g:go_highlight_structs = 0
+<
+                                                  *'g:go_highlight_fields'*
+
+Highlights field names. By default it's disabled. >
+
+  let g:go_highlight_fields = 0
 <
                                                *'g:go_highlight_interfaces'*
 
@@ -1113,10 +1273,24 @@ By default it is set to edit.
                                                        *g:go_gorename_prefill*
 
 Specifies whether |:GoRename| prefills the new identifier name with the
-word under the cursor. By default is is enabled.
+word under the cursor. By default it is enabled.
 >
   let g:go_gorename_prefill = 1
 <
+                                                       *g:go_gocode_autobuild*
+
+Specifies whether `gocode` should automatically build out-of-date packages
+when their source fiels are modified, in order to obtahin the freshes
+autocomplete results for them.  By default it is enabled.
+>
+  let g:go_gocode_autobuild = 1
+<
+                                                *g:go_gocode_propose_builtins*
+
+Specifies whether `gocode` should add built-in types, functions and constants
+to an autocompletion proposals. By default it is enabled.
+>
+  let g:go_gocode_propose_builtins = 1
 
 
 ===============================================================================
@@ -1164,7 +1338,7 @@ You'll see a more detailed error. If this works, vim-go will work too.
 CREDITS                                                         *go-credits*
 
 * Go Authors for official vim plugins
-* Gocode, Godef, Golint, Oracle, Goimports, Errcheck projects and authors of
+* Gocode, Godef, Golint, Guru, Goimports, Errcheck projects and authors of
   those projects.
 * Other vim-plugins, thanks for inspiration (vim-golang, go.vim, vim-gocode,
   vim-godef)

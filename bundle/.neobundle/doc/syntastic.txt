@@ -76,9 +76,7 @@ syntax checker plugins are defined on a per-filetype basis where each one wraps
 up an external syntax checking program. The core script delegates off to these
 plugins and uses their output to provide the syntastic functionality.
 
-Take a look at the wiki for a list of supported filetypes and checkers:
-
-    https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers
+Take a look at the list of supported filetypes and checkers: |syntastic-checkers|.
 
 Note: This doc only deals with using syntastic. To learn how to write syntax
 checker integrations, see the guide on the GitHub wiki:
@@ -751,10 +749,8 @@ If neither |'g:syntastic_<filetype>_checkers'| nor |'b:syntastic_checkers'|
 is set, a default list of checker is used. Beware however that this list
 deliberately kept minimal, for performance reasons.
 
-Take a look at the wiki to find out what checkers and filetypes are supported
-by syntastic:
-
-    https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers
+Take a look elsewhere in this manual to find out what checkers and filetypes
+are supported by syntastic: |syntastic-checkers|.
 
 Use `:SyntasticInfo` to see which checkers are available for a given filetype.
 
@@ -848,9 +844,8 @@ omitting the filename from the command line: >
                                             *syntastic-config-no-makeprgbuild*
 For checkers that do not use the "makeprgBuild()" function you will have to
 look at the source code of the checker in question. If there are specific
-options that can be set, they are normally documented in the wiki:
-
-    https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers
+options that can be set they are normally documented in this manual (see
+|syntastic-checkers|).
 
 ------------------------------------------------------------------------------
 5.4 Sorting errors                                     *syntastic-config-sort*
@@ -1071,10 +1066,16 @@ mode only work with "vim-auto-save" version 0.1.7 or later.
 Syntastic can be used along with the "vim-go" Vim plugin (see
 https://github.com/fatih/vim-go). However, both "vim-go" and syntastic run
 syntax checks by default when you save buffers to disk. To avoid conflicts,
-you have to either set passive mode in syntastic for the go filetype (see
+you have to either set passive mode in syntastic for the "go" filetype (see
 |syntastic_mode_map|), or prevent "vim-go" from showing a quickfix window when
 |g:go_fmt_command| fails, by setting |g:go_fmt_fail_silently| to 1. E.g.: >
     let g:go_fmt_fail_silently = 1
+<
+"vim-go" version 1.4 and earlier always uses |quickfix| lists. Starting with
+version 1.5, "vim-go" can also use location lists (see |location-list|). To
+avoid conflicts with syntastic, you probably want to configure "vim-go" to
+stick with |quickfix| lists: >
+    let g:go_list_type = "quickfix"
 <
 ------------------------------------------------------------------------------
 7.11. vim-virtualenv                                *syntastic-vim-virtualenv*
