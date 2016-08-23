@@ -1,9 +1,10 @@
 config:
 	ln -sf ~/.vim/vimrc ~/.vimrc
 	ln -sf ~/.vim/vimrc.local ~/.vimrc.local
+	ln -sf ~/.vim/vimrc.local.bundles ~/.vimrc.local.bundles
 
 install: clean config
-	vim +NeoBundleInstall +qall
+	vim +PlugInstall +qall
 
 update: config
 	@echo "Open vim and run :VimBoostrapUpdate"
@@ -12,3 +13,5 @@ update: config
 
 clean:
 	rm -rf ~/.vim/bundle
+	rm -rf ~/.vim/plugged
+	rm -rf ~/.vim/autoload
