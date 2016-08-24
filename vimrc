@@ -46,9 +46,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
 
 let g:make = 'make'
-if system('uname -o') =~ '^GNU/'
-        let g:make = 'make'
-endif
+
 Plug 'Shougo/vimproc.vim', {'do': g:make}
 
 "" Vim-Session
