@@ -9,6 +9,8 @@ nnoremap <leader>a :cclose<CR>
 
 " my custom mappings
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+imap jj <Esc>
+imap kk <Esc>
 
 " my custom vim-go mappings
 " https://github.com/fatih/vim-go-tutorial
