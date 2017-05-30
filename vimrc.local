@@ -11,6 +11,7 @@ nnoremap <leader>a :cclose<CR>
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 imap jj <Esc>
 imap kk <Esc>
+imap <C-c> <Esc>
 
 " my custom vim-go mappings
 " https://github.com/fatih/vim-go-tutorial
