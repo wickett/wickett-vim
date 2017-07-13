@@ -15,23 +15,10 @@ imap <C-c> <Esc>
 
 " my custom vim-go mappings
 " https://github.com/fatih/vim-go-tutorial
-
 au FileType go nmap <leader>c <Plug>(go-coverage)
-
-autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-
-" tabs and space settings
-autocmd FileType * set tabstop=2
-autocmd FileType * set shiftwidth=2
-autocmd FileType * set softtabstop=0
-autocmd FileType * set autoindent
-"autocmd FileType * set expandtab
 
 "" vim-go settings
 let g:go_snippet_case_type = "camelcase"
-
 
 "" neocomplete settings
 " Disable AutoComplPop.
@@ -76,4 +63,7 @@ inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 " Close popup by <Space>.
 "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+"HTML Tidy for Syntastic
+let g:syntastic_html_tidy_ignore_errors = [ '<link> proprietary attribute "integrity"', '<link> proprietary attribute "crossorigin"' ]
 
