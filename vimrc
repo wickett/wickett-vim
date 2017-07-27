@@ -1,4 +1,4 @@
-" vim-bootstrap 148a7a8
+" vim-bootstrap 32075a8
 
 "*****************************************************************************
 "" Vim-PLug core
@@ -137,7 +137,6 @@ set nobackup
 set noswapfile
 
 set fileformats=unix,dos,mac
-set showcmd
 
 if exists('$SHELL')
     set shell=$SHELL
