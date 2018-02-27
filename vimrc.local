@@ -67,3 +67,5 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 "HTML Tidy for Syntastic
 let g:syntastic_html_tidy_ignore_errors = [ '<link> proprietary attribute "integrity"', '<link> proprietary attribute "crossorigin"' ]
 
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
