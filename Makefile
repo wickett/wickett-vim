@@ -12,7 +12,7 @@ install: clean config
 
 update:
 	@echo "Downloading new vimrc..."
-	curl 'http://vim-bootstrap.com/generate.vim' --data 'langs=go&langs=ruby&editor=vim' > ~/.vim/vimrc
+	curl 'http://vim-bootstrap.com/generate.vim' --data 'langs=go&editor=vim' > ~/.vim/vimrc
 	@echo "Check in changes to gh"
 	@echo "Run make install to get a clean build"
 
