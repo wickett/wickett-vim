@@ -102,3 +102,6 @@ Command | Description
 `,gr` | go run
 `,rb` | go build
 `,gt` | go test
+
+
+test
